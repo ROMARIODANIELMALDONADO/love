@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="refresh" content="0; URL='amor.html'" />
+    <meta http-equiv="refresh" content="0; URL='proyectolovexd/amor.html'" />
     <title>Redirigiendo...</title>
   </head>
   <body>
-    <p>Redirigiendo a aaa.html...</p>
+    <p>Redirigiendo a la página...</p>
   </body>
 </html>
