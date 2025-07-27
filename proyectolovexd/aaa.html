@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Álbum de Recuerdos</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #111111;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    h1 {
+      margin-top: 30px;
+      font-size: 2.5em;
+      color: #c55;
+      font-family: 'Georgia', serif;
+      z-index: 2;
+    }
+
+    .album-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 40px;
+      max-width: 1200px;
+      z-index: 2;
+    }
+
+    .polaroid {
+      background: white;
+      padding: 10px;
+      box-shadow: 2px 4px 12px rgba(0,0,0,0.2);
+      width: 180px;
+      transform: rotate(calc(-5deg + 10deg * var(--rot)));
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .polaroid:hover {
+      transform: scale(1.05) rotate(0deg);
+      z-index: 3;
+    }
+
+    .polaroid img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .caption {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 8px;
+      color: #555;
+    }
+
+    .letter {
+      max-width: 500px;
+      background: #fff9f4;
+      border: 2px dashed rgb(211, 20, 20);
+      padding: 20px;
+      margin: 30px auto;
+      border-radius: 12px 12px 0 0;
+      font-size: 16px;
+      color: #4a2e2e;
+      line-height: 1.6;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      font-family: 'Georgia', serif;
+      z-index: 2;
+      position: relative;
+      border-bottom: 4px solid #c33;
+    }
+
+    .letter strong {
+      color: #c33;
+    }
+
+    canvas#heartRain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <audio src="cancion.mp3" autoplay loop></audio>
+  
+  <canvas id="heartRain"></canvas>
+
+  <h1>La niña más bonita ❤️</h1>
+
+  <div class="album-container">
+    <div class="polaroid" style="--rot: 0.1"><img src="imagenes/vale1.jpeg" alt="Vale 1"><div class="caption">Tu</div></div>
+    <div class="polaroid" style="--rot: 0.3"><img src="imagenes/vale2.jpeg" alt="Vale 2"><div class="caption">Eres</div></div>
+    <div class="polaroid" style="--rot: 0.6"><img src="imagenes/vale3.jpeg" alt="Vale 3"><div class="caption">la</div></div>
+    <div class="polaroid" style="--rot: 0.8"><img src="imagenes/vale4.jpeg" alt="Vale 4"><div class="caption">más bonita</div></div>
+  </div>
+
+  <div class="letter">
+    <p>Hola mi querida <strong>Valeri</strong>,</p>
+    <p>Cada fotografía es un instante detenido, una forma de atrapar lo preciosa que te ves.</p>
+    <p>Este pequeño álbum es un recordatorio para que veas que, para mí, no hay una mujer más hermosa que usted.</p>
+    <p>Gracias por existir, por ser tú, y por regalarme tu tiempo.</p>
+    <p>Con todo mi cariño,<br><strong>Romario</strong></p>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('heartRain');
+    const ctx = canvas.getContext('2d');
+    let hearts = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+
+    function createHeart() {
+      return {
+        x: Math.random() * canvas.width,
+        y: -10,
+        size: 20 + Math.random() * 15,
+        speed: 1 + Math.random() * 2,
+        opacity: 0.6 + Math.random() * 0.4
+      };
+    }
+
+    function drawHeart(x, y, size, opacity) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.scale(size / 20, size / 20);
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.bezierCurveTo(0, -3, -7, -5, -7, -10);
+      ctx.bezierCurveTo(-7, -15, 0, -18, 0, -13);
+      ctx.bezierCurveTo(0, -18, 7, -15, 7, -10);
+      ctx.bezierCurveTo(7, -5, 0, -3, 0, 0);
+      ctx.fillStyle = `rgba(255,255,255,${opacity})`;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      hearts.forEach((heart, i) => {
+        heart.y += heart.speed;
+        drawHeart(heart.x, heart.y, heart.size, heart.opacity);
+        if (heart.y > canvas.height + 10) {
+          hearts[i] = createHeart();
+        }
+      });
+      requestAnimationFrame(animate);
+    }
+
+    for (let i = 0; i < 50; i++) {
+      hearts.push(createHeart());
+    }
+
+    animate();
+  </script>
+</body>
+</html>
