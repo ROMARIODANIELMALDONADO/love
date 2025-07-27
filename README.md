@@ -2,7 +2,7 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="refresh" content="0; URL='aaa.html'" />
+    <meta http-equiv="refresh" content="0; URL='amor.html'" />
     <title>Redirigiendo...</title>
   </head>
   <body>
