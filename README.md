@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="refresh" content="0; URL='proyectolovexd/amor.html'" />
+    <meta http-equiv="refresh" content="0; URL='proyectolovexd/aaa.html'" />
     <title>Redirigiendo...</title>
   </head>
   <body>
